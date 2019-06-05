@@ -1,6 +1,7 @@
 class TwoFer {
-  static twoFer( /* Parameters go here */ ) {
+  static twoFer(name:string = "you" ) {
     // Your code here
+    return `One for ${name}, one for me.`
   }
 }
 
