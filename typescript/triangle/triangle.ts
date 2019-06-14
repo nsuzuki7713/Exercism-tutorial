@@ -6,9 +6,7 @@ export default class Triangle {
   }
 
   kind() {
-    const a = this.sides[0];
-    const b = this.sides[1];
-    const c = this.sides[2];
+    const [a, b, c] = this.sides;
 
     // Side length is 0 or more
     if (this.sides.some(len => len <= 0)) throw new Error();
@@ -27,3 +25,20 @@ export default class Triangle {
     return 'scalene';
   }
 }
+
+// 他の人の解答
+// export default class Triangle {
+//   sides: number[];
+
+//   constructor(...sides: number[]) {
+//     this.sides = sides.sort((a, b) => a - b);
+//   }
+
+//   kind() {
+//     let [a, b, c] = this.sides;
+//     if (a + b <= c) throw new Error();
+//     if (a === c) return 'equilateral';
+//     if (a === b || b === c) return 'isosceles';
+//     return 'scalene';
+//   }
+// }
