@@ -1,118 +1,32 @@
 class Allergies {
-  private score: number;
+  private allergies: string[] = [];
+  private readonly food: { [key: string]: number } = {
+    eggs: 1,
+    peanuts: 2,
+    shellfish: 4,
+    strawberries: 8,
+    tomatoes: 16,
+    chocolate: 32,
+    pollen: 64,
+    cats: 128
+  };
+
   constructor(score: number) {
-    this.score = score;
+    for (const key in this.food) {
+      const foodScore = this.food[key];
+
+      // ビット論理積(ビットマスクして計算)
+      if (score & foodScore) {
+        this.allergies.push(key);
+      }
+    }
   }
 
   allergicTo(item: string): boolean {
-    let tempScore = this.score;
-    if (tempScore >= 128) {
-      tempScore = tempScore - 128;
-      if (item === 'cats') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 64) {
-      tempScore = tempScore - 64;
-      if (item === 'pollen') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 32) {
-      tempScore = tempScore - 32;
-      if (item === 'chocolate') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 16) {
-      tempScore = tempScore - 16;
-      if (item === 'tomatoes') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 8) {
-      tempScore = tempScore - 8;
-      if (item === 'strawberries') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 4) {
-      tempScore = tempScore - 4;
-      if (item === 'shellfish') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 2) {
-      tempScore = tempScore - 2;
-      if (item === 'peanuts') {
-        return true;
-      }
-    }
-
-    if (tempScore >= 1) {
-      tempScore = tempScore - 1;
-      if (item === 'eggs') {
-        return true;
-      }
-    }
-
-    return false;
+    return this.allergies.includes(item);
   }
   list(): string[] {
-    let result: string[] = [];
-    let tempScore = this.score;
-
-    if (tempScore >= 256) {
-      tempScore = tempScore - 256;
-    }
-
-    if (tempScore >= 128) {
-      tempScore = tempScore - 128;
-      result.push('cats');
-    }
-
-    if (tempScore >= 64) {
-      tempScore = tempScore - 64;
-      result.push('pollen');
-    }
-
-    if (tempScore >= 32) {
-      tempScore = tempScore - 32;
-      result.push('chocolate');
-    }
-
-    if (tempScore >= 16) {
-      tempScore = tempScore - 16;
-      result.push('tomatoes');
-    }
-
-    if (tempScore >= 8) {
-      tempScore = tempScore - 8;
-      result.push('strawberries');
-    }
-
-    if (tempScore >= 4) {
-      tempScore = tempScore - 4;
-      result.push('shellfish');
-    }
-
-    if (tempScore >= 2) {
-      tempScore = tempScore - 2;
-      result.push('peanuts');
-    }
-
-    if (tempScore >= 1) {
-      tempScore = tempScore - 1;
-      result.push('eggs');
-    }
-
-    return result.reverse();
+    return this.allergies;
   }
 }
 
