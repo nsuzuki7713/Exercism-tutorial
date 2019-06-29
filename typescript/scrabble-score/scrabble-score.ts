@@ -28,18 +28,14 @@ const points: { [key: string]: number } = {
 };
 
 export default function score(words: string | undefined) {
-  let score = 0;
-
   if (words === undefined) {
-    return score;
+    return 0;
   }
 
-  words
+  return words
     .toLocaleUpperCase()
     .split('')
-    .forEach(word => {
-      score += points[word];
-    });
-
-  return score;
+    .reduce((acc: number, cur: string) => {
+      return acc + points[cur];
+    }, 0);
 }
